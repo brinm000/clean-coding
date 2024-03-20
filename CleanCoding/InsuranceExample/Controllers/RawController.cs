@@ -23,8 +23,8 @@ public class RawController : Controller
         // alles moet zijn ingevuld
         if(!string.IsNullOrWhiteSpace(name) && 
                 !string.IsNullOrWhiteSpace(address) && 
-                    !string.IsNullOrEmpty(residence) &&
-                        !string.IsNullOrEmpty(birthdate) )
+                    !string.IsNullOrWhiteSpace(residence) &&
+                        !string.IsNullOrWhiteSpace(birthdate) )
         {
             // klant moet ouder zijn dan 18 jaar
             // bereken leeftijd
@@ -37,7 +37,7 @@ public class RawController : Controller
                 age--;
             }
             // controleer leeftijd
-            if (age > 18)
+            if (age >= 18)
             {
                 // basispremie
                 premium = 250.0;
@@ -54,6 +54,7 @@ public class RawController : Controller
                 {
                     premium = 0.75 * premium;
                 }
+                Console.WriteLine($"Premium: {premium}");
             }
             else
             {
