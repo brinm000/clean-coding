@@ -21,7 +21,7 @@ namespace InsuranceExample.Controllers
             string viewName = "Success";
             double premium = 0;
             // alles moet zijn ingevuld
-            if (CompleteForm(name, address, residence, birthdate, certificate))
+            if (FormComplete(name, address, residence, birthdate, certificate))
             {                
                 if (ValidAge(birthdate))
                 {
@@ -40,7 +40,6 @@ namespace InsuranceExample.Controllers
                     {
                         premium = 0.75 * premium;
                     }
-                    Console.WriteLine($"Premium: {premium}");
                 }
                 else
                 {
@@ -58,13 +57,14 @@ namespace InsuranceExample.Controllers
                     Console.WriteLine(name);
                     Console.WriteLine($"{address} {residence}");
                     Console.WriteLine(birthdate);
+                    Console.WriteLine($"Premium: {premium}");
                     Console.WriteLine();
                 }
             }
             return View(viewName);
         }
 
-        private bool CompleteForm(string? name, string? address, string? residence, string? birthdate, bool certificate)
+        private bool FormComplete(string? name, string? address, string? residence, string? birthdate, bool certificate)
         {
             return !string.IsNullOrWhiteSpace(name) &&
                     !string.IsNullOrWhiteSpace(address) &&

@@ -54,7 +54,6 @@ public class RawController : Controller
                 {
                     premium = 0.75 * premium;
                 }
-                Console.WriteLine($"Premium: {premium}");
             }
             else
             {
@@ -71,7 +70,8 @@ public class RawController : Controller
             {
                 Console.WriteLine(name);
                 Console.WriteLine($"{address} {residence}");
-                Console.WriteLine(birthdate);
+                Console.WriteLine(birthdate)
+                Console.WriteLine($"Premium: {premium}");
                 Console.WriteLine();
             }
         }
