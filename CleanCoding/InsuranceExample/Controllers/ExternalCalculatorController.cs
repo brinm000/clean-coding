@@ -1,19 +1,13 @@
-﻿using InsuranceExample.Models;
+﻿using InsuranceCalculators;
+using InsuranceCalculators.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Immutable;
 
 namespace InsuranceExample.Controllers;
 
-public class ExtractMagicNumbersController : Controller
+public class ExternalCalculatorController : Controller
+
 {
     private const int _numberOfStickersToPrint = 5;
-    private const int _minimumAge = 18;
-    private const double _basePremium = 250.0;
-    private const double _premiumIncreaseForRiskCity = 1.1;
-    private const double _premiumDecreaseForCertificate = 0.75;
-
-    private static readonly ImmutableArray<string> _citiesWithHigherRisk = ["amsterdam", "rotterdam", "utrecht"];
-    private static readonly ImmutableArray<string> _certificateExceptionCities = ["amsterdam"];
 
     public IActionResult Index()
     {
@@ -59,23 +53,11 @@ public class ExtractMagicNumbersController : Controller
 
     private static void CalculatePremium(Customer customer)
     {
-        // basispremie
-        customer.Premium = _basePremium;
-        string checkResidence = customer.Residence.ToLower();
-        // premieverhogen ivm meer inbraken
-        if (_citiesWithHigherRisk.Contains(checkResidence))
-        {
-            customer.Premium *= _premiumIncreaseForRiskCity;
-        }
-        // premieverlaging ivm certificaat
-        if (customer.Certificate && !_certificateExceptionCities.Contains(checkResidence))
-        {
-            customer.Premium *= _premiumDecreaseForCertificate;
-        }
+        customer.Premium = HomeInsuranceCalculator.CalculatePremiumForCustomer(customer);
     }
 
     private bool ValidAge(Customer customer)
     {
-        return customer.Age >= _minimumAge;
+        return HomeInsuranceCalculator.ValidAge(customer);
     }
 }

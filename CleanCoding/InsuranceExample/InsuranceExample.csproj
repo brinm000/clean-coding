@@ -10,4 +10,8 @@
     <Folder Include="Views\BooleanMethods\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\InsuranceCalculators\InsuranceCalculators.csproj" />
+  </ItemGroup>
+
 </Project>

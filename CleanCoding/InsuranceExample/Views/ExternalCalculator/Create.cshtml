@@ -1,0 +1,37 @@
+﻿@model InsuranceCalculators.Models.Customer
+@{
+    ViewData["Title"] = "Create Insurance";
+}
+<h1>Create Insurance</h1>
+
+<h4>Fill in this form</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-action="Create">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input class="form-control" asp-for="Name" />
+            </div>
+            <div class="form-group">
+                <label for="address" class="control-label">Address</label>
+                <input class="form-control" asp-formaction="Address" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Residence"></label>
+                <input class="form-control"asp-for="Residence" />
+            </div>
+            <div class="form-group">
+                <label asp-for="BirthDate" ></label>
+                <input class="form-control" asp-for="BirthDate" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Certificate"></label>
+                <input asp-for="Certificate" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Apply" />
+            </div>
+        </form> 
+    </div>
+</div>
