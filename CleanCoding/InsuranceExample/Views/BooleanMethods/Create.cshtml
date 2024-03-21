@@ -1,0 +1,41 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@{
+    ViewData["Title"] = "Create Insurance";
+}
+<h1>Create Insurance</h1>
+
+<h4>Fill in this form</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-action="Create">
+            <div class="form-group">
+                <label for="name" class="control-label">Name</label>
+                <input class="form-control" type="text" id="name" name="name" placeholder="Name" required />
+            </div>
+            <div class="form-group">
+                <label for="address" class="control-label">Address</label>
+                <input class="form-control" type="text" id="address" name="address" placeholder="Address" required />
+            </div>
+            <div class="form-group">
+                <label for="residence" class="control-label">Residence</label>
+                <input class="form-control" type="text" id="residence" name="residence" placeholder="Residence" required />
+            </div>
+            <div class="form-group">
+                <label for="birthdate" class="control-label">Birth Date</label>
+                <input class="form-control" type="date" id="birthdate" name="birthdate" placeholder="Birth Date" required />
+            </div>
+            <div class="form-group">
+                <input type="checkbox" name="certificate" id="certificate" />
+                <label for="certificate" class="control-label">Certificate</label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Apply" />
+            </div>
+        </form> 
+    </div>
+</div>
