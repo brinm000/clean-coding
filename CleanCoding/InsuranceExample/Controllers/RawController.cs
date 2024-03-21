@@ -64,13 +64,14 @@ public class RawController : Controller
         {
             viewName = "NotFilledIn";
         }
+        // alles is oke, print stickers
         if(viewName == "Success")
         {
             for (int i = 0; i < 5; i++)
             {
                 Console.WriteLine(name);
                 Console.WriteLine($"{address} {residence}");
-                Console.WriteLine(birthdate)
+                Console.WriteLine(birthdate);
                 Console.WriteLine($"Premium: {premium}");
                 Console.WriteLine();
             }
