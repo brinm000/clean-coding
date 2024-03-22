@@ -4,30 +4,46 @@ namespace InsuranceExample.Controllers;
 
 public class RawController : Controller
 {
+    /// <summary>
+    /// Show the Index page
+    /// </summary>
+    /// <returns></returns>
     public IActionResult Index()
     {
         return View();
     }
 
+    /// <summary>
+    /// Show a page for the customer to fill in their name, birthdate and address details
+    /// </summary>
+    /// <returns></returns>
     public IActionResult Create()
     {
         return View();
     }
 
+    /// <summary>
+    /// Validates customer's name, birthdate and address details,
+    /// and calculates insurance premium based on address details.
+    /// A number of stickers will bew printed after validation and calculation.
+    /// </summary>
+    /// <param name="name">NAme of customer</param>
+    /// <param name="address">address of customer</param>
+    /// <param name="residence">residence of customer</param>
+    /// <param name="birthdate">birthdate of customer</param>
+    /// <param name="certificate"> whether the customer has a certificate for a well-secured house</param>
+    /// <returns>Webpage View</returns>
     [HttpPost]
     [ValidateAntiForgeryToken]
     public IActionResult Create(string? name, string? address, string? residence, string? birthdate, bool certificate)
     {
         string viewName = "Success";
         double premium = 0;
-        // alles moet zijn ingevuld
         if(!string.IsNullOrWhiteSpace(name) && 
                 !string.IsNullOrWhiteSpace(address) && 
                     !string.IsNullOrWhiteSpace(residence) &&
                         !string.IsNullOrWhiteSpace(birthdate) )
         {
-            // klant moet ouder zijn dan 18 jaar
-            // bereken leeftijd
             var birthDay = DateTime.Parse(birthdate);
             int birthYear = birthDay.Year;
             var now = DateTime.Now;
@@ -36,20 +52,16 @@ public class RawController : Controller
             {
                 age--;
             }
-            // controleer leeftijd
             if (age >= 18)
             {
-                // basispremie
                 premium = 250.0;
                 string checkResidence = residence.ToLower();
-                // premieverhogen ivm meer inbraken
                 if(checkResidence == "amsterdam" || 
                     checkResidence == "rotterdam" ||
                         checkResidence == "utrecht") 
                 {
                     premium = premium * 1.1;
                 }
-                // premieverlaging ivm certificaat
                 if(certificate && checkResidence != "amsterdam")
                 {
                     premium = 0.75 * premium;
@@ -64,7 +76,6 @@ public class RawController : Controller
         {
             viewName = "NotFilledIn";
         }
-        // alles is oke, print stickers
         if(viewName == "Success")
         {
             for (int i = 0; i < 5; i++)
