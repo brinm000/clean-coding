@@ -4,45 +4,36 @@ namespace InsuranceExample.Controllers;
 
 public class RawController : Controller
 {
-    /// <summary>
-    /// Show the Index page
-    /// </summary>
-    /// <returns></returns>
+    // Toont de index pagina voor het initiëren van klanten
     public IActionResult Index()
     {
         return View();
     }
 
-    /// <summary>
-    /// Show a page for the customer to fill in their name, birthdate and address details
-    /// </summary>
-    /// <returns></returns>
+    /// Toont een pagina om de gevevens van een klant in te voeren
     public IActionResult Create()
     {
         return View();
     }
 
-    /// <summary>
-    /// Validates customer's name, birthdate and address details,
-    /// and calculates insurance premium based on address details.
-    /// A number of stickers will bew printed after validation and calculation.
-    /// </summary>
-    /// <param name="name">NAme of customer</param>
-    /// <param name="address">address of customer</param>
-    /// <param name="residence">residence of customer</param>
-    /// <param name="birthdate">birthdate of customer</param>
-    /// <param name="certificate"> whether the customer has a certificate for a well-secured house</param>
-    /// <returns>Webpage View</returns>
+    // Verwerkt de gegevens van een klant
     [HttpPost]
     [ValidateAntiForgeryToken]
     public IActionResult Create(string? name, string? address, string? residence, string? birthdate, bool certificate)
     {
-        string viewName = "Success";
+        CreateCustomer(name, address, residence, birthdate, certificate);
+        return View();
+    }
+
+    // Maakt de klant aan
+    private string CreateCustomer(string? name, string? address, string? residence, string? birthdate, bool certificate)
+    {
+        string createResult = "Success";
         double premium = 0;
-        if(!string.IsNullOrWhiteSpace(name) && 
-                !string.IsNullOrWhiteSpace(address) && 
+        if (!string.IsNullOrWhiteSpace(name) &&
+                !string.IsNullOrWhiteSpace(address) &&
                     !string.IsNullOrWhiteSpace(residence) &&
-                        !string.IsNullOrWhiteSpace(birthdate) )
+                        !string.IsNullOrWhiteSpace(birthdate))
         {
             var birthDay = DateTime.Parse(birthdate);
             int birthYear = birthDay.Year;
@@ -56,27 +47,27 @@ public class RawController : Controller
             {
                 premium = 250.0;
                 string checkResidence = residence.ToLower();
-                if(checkResidence == "amsterdam" || 
+                if (checkResidence == "amsterdam" ||
                     checkResidence == "rotterdam" ||
-                        checkResidence == "utrecht") 
+                        checkResidence == "utrecht")
                 {
                     premium = premium * 1.1;
                 }
-                if(certificate && checkResidence != "amsterdam")
+                if (certificate && checkResidence != "amsterdam")
                 {
                     premium = 0.75 * premium;
                 }
             }
             else
             {
-                viewName = "TooYoung";
+                createResult = "TooYoung";
             }
         }
         else
         {
-            viewName = "NotFilledIn";
+            createResult = "NotFilledIn";
         }
-        if(viewName == "Success")
+        if (createResult == "Success")
         {
             for (int i = 0; i < 5; i++)
             {
@@ -87,6 +78,6 @@ public class RawController : Controller
                 Console.WriteLine();
             }
         }
-        return View(viewName);
+        return createResult;
     }
 }
