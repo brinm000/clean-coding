@@ -34,7 +34,7 @@ if($age >= 18 &&
       $city == "Amsterdam" ||
       $city == "Den Haag" ||
       $city == "Rotterdam")) {
-    echo $name . "krijgt een verzekering";
+    echo $name . " krijgt een verzekering" . PHP_EOL;
     echo "$name" . PHP_EOL;
     echo "$city" . PHP_EOL . PHP_EOL;
     echo "$name" . PHP_EOL;

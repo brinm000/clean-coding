@@ -9,20 +9,20 @@
  * stap 3: sticker print in function
  */
 
-function getString(string $prompt)
+function getString(string $prompt): string
 {
     do {
-        $input = readline($prompt);
+        $input = trim(readline($prompt));
     } while(strlen($input == 0));
     return $input;
 }
 
-function getInteger(string $prompt)
+function getInteger(string $prompt) : int
 {
     do {
-        $input = readline($prompt);
+        $input = trim(readline($prompt));
     } while(strlen($input == 0) || ! is_numeric($input));
-    return $input;
+    return intval($input);
 }
 
 function printStickers($name, $city, $number = 1)
@@ -39,7 +39,7 @@ $name = getString("Wat is je naam? ");
 $age = getInteger("Wat is je leeftijd? ");
 $city = strtolower( getString("Wat is je woonplaats? ") );
 if($age >= 18 && ! in_array($city, $excluded_cities)) {
-    echo $name . " krijgt een verzekering";
+    echo $name . " krijgt een verzekering" . PHP_EOL;
     printStickers($name, $city, 3);
 }
 else echo $name . " krijgt geen verzekering";

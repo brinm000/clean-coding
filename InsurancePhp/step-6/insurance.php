@@ -6,8 +6,12 @@
  * - De gebruiker niet woont in Utrecht, Amsterdam, Den Haag, of Rotterdam.
  * - Daarna wordt 3 keer een simpele adressticker geprint (met echo)
  *
- * stap 4: insurance check in function
+ * stap 6: include strings
  */
+
+include("prompt.strings.php");
+
+const NUMBER_OF_STICKERS = 3;
 
 function getString(string $prompt): string
 {
@@ -27,7 +31,7 @@ function getInteger(string $prompt) : int
 
 function printStickers(string $name, string $city, int $number = 1)
 {
-    for($sticker = 1; $sticker <= $number; $sticker++) {
+    for($sticker = 0; $sticker < $number; $sticker++) {
         echo "$name" . PHP_EOL;
         echo "$city" . PHP_EOL . PHP_EOL;
     }
@@ -35,18 +39,16 @@ function printStickers(string $name, string $city, int $number = 1)
 
 function checkForInsurance(int $age, string $city) : bool
 {
-    $excluded_cities = array("amsterdam", "den haag", "rotterdam", "utrecht");
     if ($age < 18) return false;
-    if (in_array($city, $excluded_cities)) return false;
+    if (in_array($city, EXCLUDED_CITIES))  return false;
     return true;
 }
 
-
-$name = getString("Wat is je naam? ");
-$age = getInteger("Wat is je leeftijd? ");
-$city = strtolower( getString("Wat is je woonplaats? ") );
+$name = getString(NAME_PROMPT);
+$age = getInteger(AGE_PROMPT);
+$city = strtolower( getString(CITY_PROMPT) );
 if(checkForInsurance($age, $city))  {
-    echo $name . " krijgt een verzekering" . PHP_EOL;
-    printStickers($name, $city, 3);
+    echo sprintf(INSURANCE_GRANTED, $name). PHP_EOL;
+    printStickers($name, $city, NUMBER_OF_STICKERS);
 }
-else echo $name . " krijgt geen verzekering";
+else echo sprintf(INSURANCE_NOT_GRANTED, $name);
